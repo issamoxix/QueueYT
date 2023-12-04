@@ -37,5 +37,11 @@ def append_to_queue(token, item):
 
     update_query = f"UPDATE playlists SET videoId = '{queue_str}' WHERE token = '{token}'"
     execute_query(update_query)
-    
+
     return True
+
+@try_except
+def fetch_queue(token):
+    query = f"SELECT videoId FROM playlists where token= '{token}'"
+    fetch_one = fetch_data(query, fetch_one=True)
+    return fetch_one

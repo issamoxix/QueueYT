@@ -12,6 +12,7 @@ body {
 
 .main-container {
   display: flex;
+  color:#fff;
 }
 .queue-element {
   color:#fff;

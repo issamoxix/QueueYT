@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
-
-type VideoData = {
-    videos: Array<string>
-}
+import { VideoData } from './functions';
 
 
-function VideoPlayer({data}: {data:VideoData}) {
+
+function VideoPlayer({ data }: { data: VideoData }) {
     const [player, setPlayer] = useState<any>(null)
-    const [playList, setplayList] = useState<Array<string>>(["tY_3bDHdiiA", "l78x5cADWJM"])
-    const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
+    const [playList, setplayList] = useState<Array<string>>(data.videos)
+    const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(1)
 
 
     const onReady = (event: any) => {
@@ -20,7 +16,9 @@ function VideoPlayer({data}: {data:VideoData}) {
 
 
     const playNextVideo = () => {
+        console.log("Video Ended !")
         setcurrentVideoIndex(currentVideoIndex + 1)
+        console.log(playList[currentVideoIndex])
     }
 
     const playVideo = () => {
@@ -36,14 +34,17 @@ function VideoPlayer({data}: {data:VideoData}) {
         },
     };
 
-    useEffect(()=> {
-        if(data){
+    useEffect(() => {
+        if (data) {
             setplayList(data.videos)
         }
-    }, [data])
+    }, [data, currentVideoIndex])
     return (
         <div className="video-container">
-            <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} />
+            {playList[currentVideoIndex - 1] &&
+                <YouTube videoId={playList[currentVideoIndex - 1]} opts={opts} onReady={onReady} onEnd={playNextVideo} />
+            }
+
         </div>
     )
 
