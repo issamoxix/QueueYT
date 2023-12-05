@@ -3,10 +3,13 @@ import './App.css';
 import QueueContainer from './components/QueueContainer';
 import VideoPlayer from "./components/VideoPlayer"
 import { VideoData, fetchData } from './components/functions';
+import {useSelector} from "react-redux"
 
 
 
 function App() {
+
+  const item = useSelector((state:any) => state.item)
   const [data, setdata] = useState<VideoData>({"videos":[], "token":""})
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -22,7 +25,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <h1 className="App-title">Youtube Queue</h1>
+      <h1 className="App-title">Youtube Queue Playing {item}</h1>
       <div className="main-container">
         <VideoPlayer data={data} />
         <QueueContainer data={data} />

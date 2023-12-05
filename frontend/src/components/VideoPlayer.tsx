@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
 import { VideoData } from './functions';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { changeItem } from '../store/actions';
 
 
 function VideoPlayer({ data }: { data: VideoData }) {
     const [player, setPlayer] = useState<any>(null)
     const [playList, setplayList] = useState<Array<string>>(data.videos)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(1)
-
+    const item = useSelector((state:any) => state.item)
+    const dispatch = useDispatch()
 
     const onReady = (event: any) => {
         setPlayer(event.target)
@@ -16,9 +18,9 @@ function VideoPlayer({ data }: { data: VideoData }) {
 
 
     const playNextVideo = () => {
-        console.log("Video Ended !")
+        console.log("Video Ended , Next Video : ",  playList[currentVideoIndex])
         setcurrentVideoIndex(currentVideoIndex + 1)
-        console.log(playList[currentVideoIndex])
+        dispatch(changeItem(playList[currentVideoIndex]))
     }
 
     const playVideo = () => {
@@ -37,6 +39,9 @@ function VideoPlayer({ data }: { data: VideoData }) {
     useEffect(() => {
         if (data) {
             setplayList(data.videos)
+            if(!item){
+                dispatch(changeItem(data.videos[0]))
+            }
         }
     }, [data, currentVideoIndex])
     return (
