@@ -24,7 +24,7 @@ def http_response(succ: bool, data: Union[list, str], status_code: int):
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/getqueue": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 
 @app.route("/token", methods=["GET"])

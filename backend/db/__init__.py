@@ -9,7 +9,7 @@ c.execute(
           CREATE TABLE IF NOT EXISTS playlists
           (id INTEGER PRIMARY KEY AUTOINCREMENT,
           token TEXT UNIQUE NOT NULL,
-          videoId TEXT UNIQUE NOT NULL,
+          videoId TEXT NOT NULL,
           timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
           """
 )

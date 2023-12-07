@@ -4,6 +4,7 @@ import { CHANGE_ITEM } from "./actions";
 
 const initialState = {
     item: null,
+    queue: []
 };
 
 
