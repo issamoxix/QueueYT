@@ -1,4 +1,4 @@
-import { CHANGE_ITEM } from "./actions";
+import { ADD_QUEUE, CHANGE_ITEM } from "./actions";
 
 
 
@@ -16,6 +16,11 @@ const rootReducer = (state = initialState, action: any) => {
                 ...state,
                 item: action.payload,
             };
+        case ADD_QUEUE:
+            return {
+                ...state,
+                queue:action.payload
+            }
         default:
             return state;
     }

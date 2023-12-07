@@ -7,14 +7,16 @@ function Add() {
 
     const queryParams = new URLSearchParams(window.location.search);
     const tokenValue = queryParams.get('token');
-
+    
     function onFormSubmit(event: React.FormEvent) {
         event.preventDefault()
         try{
-            const URI = new URL(input)
-            const videoId = URI.searchParams.get("v")
-            if (tokenValue && videoId){
-                addToQueue(tokenValue, videoId).then((data)=> setMsg(data))
+            if(input){
+                const URI = new URL(input)
+                const videoId = URI.searchParams.get("v")
+                if (tokenValue && videoId){
+                    addToQueue(tokenValue, videoId).then((data)=> setMsg(data))
+                }
             }
 
         }catch(error){

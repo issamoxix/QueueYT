@@ -3,8 +3,9 @@ import './styles/App.css';
 import QueueContainer from './components/QueueContainer';
 import VideoPlayer from "./components/VideoPlayer"
 import { VideoData, fetchData, fetchToken } from './components/functions';
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from 'react-router';
+import { addQueue } from './store/actions';
 
 
 
@@ -14,6 +15,9 @@ function App() {
   const item = useSelector((state: any) => state.item)
   const [data, setdata] = useState<VideoData>({ "videos": [], "token": "" })
   const navigation = useNavigate()
+
+  const dispatch = useDispatch()
+
   const queryParams = new URLSearchParams(window.location.search);
   const tokenValue = queryParams.get('token');
   useEffect(() => {
@@ -21,8 +25,10 @@ function App() {
       if (queryParams.has('token')) {
         const tokenValue = queryParams.get('token');
         if (tokenValue) {
-          fetchData(tokenValue).then((data) =>
+          fetchData(tokenValue).then((data) => {
             setdata(data.data)
+            dispatch(addQueue(data.data))
+          }
           )
         }
       } else {
@@ -43,8 +49,8 @@ function App() {
     <div className="App">
       <h1 className="App-title">Youtube Queue Playing {item}</h1>
       <div className="main-container">
-        <VideoPlayer data={data} />
-        <QueueContainer data={data} />
+        <VideoPlayer />
+        <QueueContainer />
       </div>
     </div>
   );

@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeItem } from '../store/actions';
 
 
-function VideoPlayer({ data }: { data: VideoData }) {
+function VideoPlayer() {
     const [player, setPlayer] = useState<any>(null)
-    const [playList, setplayList] = useState<Array<string>>(data.videos)
+    const [playList, setplayList] = useState<Array<string>>([])
+    const queue: VideoData = useSelector((state: any) => state.queue)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(1)
     const item = useSelector((state:any) => state.item)
+
     const dispatch = useDispatch()
 
     const onReady = (event: any) => {
@@ -37,13 +39,13 @@ function VideoPlayer({ data }: { data: VideoData }) {
     };
 
     useEffect(() => {
-        if (data) {
-            setplayList(data.videos)
+        if (queue.videos) {
+            setplayList(queue.videos)
             if(!item){
-                dispatch(changeItem(data.videos[0]))
+                dispatch(changeItem(queue.videos[0]))
             }
         }
-    }, [data, currentVideoIndex])
+    }, [queue, currentVideoIndex])
     return (
         <div className="video-container">
             {playList[currentVideoIndex - 1] &&
