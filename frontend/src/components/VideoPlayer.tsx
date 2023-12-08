@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import YouTube from 'react-youtube';
-import { VideoData } from './functions';
+import { VideoData, fetchData } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeItem } from '../store/actions';
+import { addQueue, changeItem } from '../store/actions';
 
 
 function VideoPlayer() {
     const [player, setPlayer] = useState<any>(null)
     const [playList, setplayList] = useState<Array<string>>([])
     const queue: VideoData = useSelector((state: any) => state.queue)
-    const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(1)
-    const item = useSelector((state:any) => state.item)
+    const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
+    const item = useSelector((state: any) => state.itemIndex)
+    const queryParams = new URLSearchParams(window.location.search);
 
     const dispatch = useDispatch()
 
@@ -20,9 +21,15 @@ function VideoPlayer() {
 
 
     const playNextVideo = () => {
-        console.log("Video Ended , Next Video : ",  playList[currentVideoIndex])
+        console.log("Video Ended , Next Video : ", playList[currentVideoIndex])
         setcurrentVideoIndex(currentVideoIndex + 1)
-        dispatch(changeItem(playList[currentVideoIndex]))
+        dispatch(changeItem(currentVideoIndex + 1))
+        const TokenValue = queryParams.get("token")
+        if (TokenValue) {
+            fetchData(TokenValue).then((data) => {
+                dispatch(addQueue(data.data))
+            })
+        }
     }
 
     const playVideo = () => {
@@ -41,15 +48,21 @@ function VideoPlayer() {
     useEffect(() => {
         if (queue.videos) {
             setplayList(queue.videos)
-            if(!item){
-                dispatch(changeItem(queue.videos[0]))
+            if (!item) {
+                dispatch(changeItem(0))
             }
         }
     }, [queue, currentVideoIndex])
+
+    useEffect(()=> {
+        if(queue.videos){
+            setcurrentVideoIndex(item)
+        }
+    },[item])
     return (
         <div className="video-container">
-            {playList[currentVideoIndex - 1] &&
-                <YouTube videoId={playList[currentVideoIndex - 1]} opts={opts} onReady={onReady} onEnd={playNextVideo} />
+            {playList[currentVideoIndex] &&
+                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} />
             }
 
         </div>

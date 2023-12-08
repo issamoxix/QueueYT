@@ -6,16 +6,19 @@ import { VideoData, fetchData, fetchToken } from './components/functions';
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from 'react-router';
 import { addQueue } from './store/actions';
+import Controller from './components/Controller';
 
 
 
 
 function App() {
-
-  const item = useSelector((state: any) => state.item)
-  const [data, setdata] = useState<VideoData>({ "videos": [], "token": "" })
+  const item = useSelector((state: any) => {
+    if(state.queue.videos){
+      return state.queue.videos[state.itemIndex]
+    }
+    return state.item
+  })
   const navigation = useNavigate()
-
   const dispatch = useDispatch()
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -26,18 +29,17 @@ function App() {
         const tokenValue = queryParams.get('token');
         if (tokenValue) {
           fetchData(tokenValue).then((data) => {
-            setdata(data.data)
             dispatch(addQueue(data.data))
           }
           )
         }
       } else {
         if (!new URLSearchParams(window.location.search).has('token')) {
-
+          
           fetchToken().then((token) => {
             navigation("?token=" + token)
             fetchData(token).then((data) =>
-              setdata(data.data)
+            dispatch(addQueue(data.data))
             )
           }
           )
@@ -52,6 +54,7 @@ function App() {
         <VideoPlayer />
         <QueueContainer />
       </div>
+      <Controller />
     </div>
   );
 }
