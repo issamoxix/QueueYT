@@ -6,7 +6,7 @@ import { addQueue, changeItem } from '../store/actions';
 
 
 function VideoPlayer() {
-    const [player, setPlayer] = useState<any>(null)
+    // const [player, setPlayer] = useState<any>(null)
     const [playList, setplayList] = useState<Array<string>>([])
     const queue: VideoData = useSelector((state: any) => state.queue)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
@@ -16,7 +16,8 @@ function VideoPlayer() {
     const dispatch = useDispatch()
 
     const onReady = (event: any) => {
-        setPlayer(event.target)
+        // setPlayer(event.target)
+        console.log("Video is Ready")
     }
 
 
@@ -32,11 +33,11 @@ function VideoPlayer() {
         }
     }
 
-    const playVideo = () => {
-        if (player) {
-            player.playVideo()
-        }
-    }
+    // const playVideo = () => {
+    //     if (player) {
+    //         player.playVideo()
+    //     }
+    // }
     const opts = {
         height: window.innerHeight * 0.8,
         width: window.innerWidth * 0.7,

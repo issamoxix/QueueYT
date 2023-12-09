@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import './styles/App.css';
 import QueueContainer from './components/QueueContainer';
 import VideoPlayer from "./components/VideoPlayer"
-import { VideoData, fetchData, fetchToken } from './components/functions';
-import { useDispatch, useSelector } from "react-redux"
+import { fetchData, fetchToken } from './components/functions';
+import { useDispatch} from "react-redux"
 import { useNavigate } from 'react-router';
 import { addQueue } from './store/actions';
 import Controller from './components/Controller';
@@ -12,12 +12,6 @@ import Controller from './components/Controller';
 
 
 function App() {
-  const item = useSelector((state: any) => {
-    if(state.queue.videos){
-      return state.queue.videos[state.itemIndex]
-    }
-    return state.item
-  })
   const navigation = useNavigate()
   const dispatch = useDispatch()
 
@@ -49,7 +43,7 @@ function App() {
   }, [tokenValue]);
   return (
     <div className="App">
-      <h1 className="App-title">Youtube Queue Playing {item}</h1>
+      <h1 className="App-title">Youtube Queue</h1>
       <div className="main-container">
         <VideoPlayer />
         <QueueContainer />

@@ -9,6 +9,7 @@ export async function fetchData(token: string) {
 export type VideoData = {
     videos: Array<string>
     token: string
+    videos_info?: any
 }
 
 export async function fetchToken() {

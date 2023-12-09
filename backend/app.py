@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, abort, request
 from flask_cors import CORS
-from functions import generate_token
+from functions import generate_token, fetch_video_info
 from pydantic import BaseModel
 from typing import Union
 from db.tokens import add_video, token_exists, append_to_queue, fetch_queue
@@ -44,6 +44,7 @@ def add_to_queue():
     return http_response(True, "Item has been added to the Queue !", 200)
 
 
+# use Cache here so i don't spam the youtube api
 @app.route("/getqueue", methods=["GET"])
 def get_queue():
     token = request.args.get("token")
@@ -54,5 +55,6 @@ def get_queue():
         return http_response(False, "It seems we have problem with the Queue !", 200)
 
     queue = queue[0].split(",")
-    data = {"videos": queue, "token": token}
+    videos_info = fetch_video_info(queue)
+    data = {"videos": queue, "token": token, "videos_info": videos_info}
     return http_response(True, data, 200)
