@@ -16,7 +16,7 @@ function QueueElement({ itemInfo, index }: { index: number, itemInfo: any }) {
         <img src={thumbnail} />
         <div className='queue-item-details'>
             <h3 title={title}>{title.length > 24 ? `${title.substr(0, 25)}...` : title} </h3>
-            {playing && <p>Playing</p>}
+            {/* {playing && <p>Playing</p>} */}
             <p>By {channel}</p>
         </div>
     </div>

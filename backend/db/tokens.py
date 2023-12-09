@@ -29,6 +29,8 @@ def token_exists(token):
 def append_to_queue(token, item):
     query = f"SELECT videoId FROM playlists WHERE token = '{token}'"
     fetch_one = fetch_data(query, fetch_one=True)
+    if item in fetch_one[0]:
+        return False
     queue = list(filter(None,fetch_one[0].split(",")))
     queue.append(item)
     queue_str = ",".join(queue)
@@ -40,6 +42,18 @@ def append_to_queue(token, item):
 
     return True
 
+@try_except
+def dequeue_item(token, item):
+    query = f"SELECT videoId FROM playlists WHERE token = '{token}'"
+    fetch_one = fetch_data(query, fetch_one=True)
+    if item not in fetch_one[0]:
+        return False
+    
+    new_queue = fetch_one[0].replace(item, "")
+    update_query = f"UPDATE playlists SET videoId = '{new_queue}' WHERE token = '{token}'"
+    execute_query(update_query)
+
+    return True
 @try_except
 def fetch_queue(token):
     query = f"SELECT videoId FROM playlists where token= '{token}'"

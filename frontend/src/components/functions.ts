@@ -18,7 +18,7 @@ export async function fetchToken() {
     return json.data
 }
 
-export async function addToQueue(token:string, video_id: string) {
+export async function addToQueue(token: string, video_id: string) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -29,6 +29,20 @@ export async function addToQueue(token:string, video_id: string) {
 
 
     const response = await fetch(`${apiUrl}addItem`, { headers: myHeaders, method: "POST", body: raw })
+    const json = await response.json()
+    return json.data
+}
+
+export async function deQueueItem(token: string, item: string) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "token": token,
+        "video_id": item
+    })
+
+    const response = await fetch(`${apiUrl}dequeue`, { headers: myHeaders, method: "POST", body: raw })
     const json = await response.json()
     return json.data
 }

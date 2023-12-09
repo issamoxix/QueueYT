@@ -16,6 +16,7 @@ function Add() {
                 const videoId = URI.searchParams.get("v")
                 if (tokenValue && videoId){
                     addToQueue(tokenValue, videoId).then((data)=> setMsg(data))
+                    setinput("")
                 }
             }
 
