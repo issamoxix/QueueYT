@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from "./store"
 import Add from './Add';
+import YouTube from 'react-youtube';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <div><YouTube videoId={"TUVcZfQe-Kw"} /></div>,
   }, {
     path: "/player",
     element: <App />
