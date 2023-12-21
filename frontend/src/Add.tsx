@@ -34,28 +34,27 @@ function Add() {
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {
                                 borderColor: 'white',
-                                color: "white" // Change the border color
+                                color: "white"
                             },
                             '&:hover fieldset': {
                                 borderColor: 'blue',
-                                color: "white" // Change the border color on hover
+                                color: "white"
                             },
                             '&.Mui-focused fieldset': {
                                 color: "white"
                             }
                         }, '&.Mui-focused .MuiInputLabel-outlined': {
-                            color: 'white' // Change the label color when focused
+                            color: 'white'
                         }
                     }} InputLabelProps={{
-                        style: { color: 'white' }, // changes the label color
+                        style: { color: 'white' },
                     }}
                         inputProps={{
-                            style: { color: 'white' }, // changes the text color
+                            style: { color: 'white' },
                         }} id="outlined-basic"
                         label="Youtube Video "
                         variant="outlined" value={input instanceof URL ? input.href : input} onChange={(e) => setinput(e.target.value)} />
-                    {/* <input type="submit" value="Add To Queue" /> */}
-                    <Button variant="outlined">Add To Queue</Button>
+                    <Button variant="outlined" type="submit">Add To Queue</Button>
                 </form>
                 <span>{msg}</span>
             </center>
