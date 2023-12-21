@@ -17,6 +17,7 @@ function VideoPlayer() {
 
     const onReady = (event: any) => {
         // setPlayer(event.target)
+        document.body.style.backgroundImage = `url("${queue.videos_info[playList[currentVideoIndex]].snippet.thumbnails.maxres.url}")`
         console.log("Video is Ready")
     }
 

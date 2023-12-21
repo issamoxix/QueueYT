@@ -1,4 +1,5 @@
-const apiUrl = "http://localhost:5000/"
+// const apiUrl = "http://localhost:5000/"
+const apiUrl = "http://192.168.178.21:5000/"
 
 export async function fetchData(token: string) {
     const response = await fetch(`${apiUrl}getqueue?token=${token}`)
@@ -28,7 +29,7 @@ export async function addToQueue(token: string, video_id: string) {
     });
 
 
-    const response = await fetch(`${apiUrl}addItem`, { headers: myHeaders, method: "POST", body: raw })
+    const response = await fetch(`${apiUrl}item`, { headers: myHeaders, method: "POST", body: raw })
     const json = await response.json()
     return json.data
 }

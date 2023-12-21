@@ -1,8 +1,9 @@
 body {
   /* background-color: #0f0f0f; */
-  background-image: url("/tokyonight.jpg");
+  /* background-image: url("/tokyonight.jpg"); */
   background-repeat:no-repeat ;
   background-size: cover;
+  transition: linear 4s;
 }
 
 .queue-controller {
@@ -18,19 +19,24 @@ body {
 
 .App-title {
   margin: 10px;
-  color: #000;
+  color: rgb(199 14 35);
 }
-
+.App-title span{
+  color:rgb(7 18 25);
+}
 .main-container {
   display: flex;
   color: #fff;
 }
 .queue-container {
   backdrop-filter: blur(4px);
-  background: #00000033;
+  /* background: #00000033; */
+  /* background-color: rgb(7 18 25); */
+  /* background-color: rgb(7 18 25 / 60%); */
   margin-top: 10px;
   overflow-y: scroll;
   height: 80vh;
+  width: 100%;
 }
 .queue-element {
   color: #fff;
@@ -45,8 +51,8 @@ body {
 }
 .queue-element img {
   object-fit: contain;
-  border:1px solid #fff;
-  border-radius: 9px;
+  /* border:1px solid #fff; */
+  /* border-radius: 9px; */
 }
 
 .queue-item-details * {

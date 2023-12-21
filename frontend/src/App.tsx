@@ -43,7 +43,7 @@ function App() {
   }, [tokenValue]);
   return (
     <div className="App">
-      <h1 className="App-title">Youtube Queue</h1>
+      <h1 className="App-title">Youtube<span>Queue</span></h1>
       <div className="main-container">
         <VideoPlayer />
         <QueueContainer />
