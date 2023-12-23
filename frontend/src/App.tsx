@@ -48,7 +48,6 @@ function App() {
         <VideoPlayer />
         <QueueContainer />
       </div>
-      <Controller token={tokenValue} />
     </div>
   );
 }

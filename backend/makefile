@@ -6,4 +6,4 @@ setup:
 	@echo "run: set API_KEY=your_api_key_value"
 
 run:
-	flask run --reload
+	flask run --host=0.0.0.0 --reload
