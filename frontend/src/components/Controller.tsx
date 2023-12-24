@@ -30,12 +30,12 @@ function Controller({ token }: { token: string | null }) {
 
     return (
         <div className="queue-controller">
-            <button onClick={() => itemIndex > 0 && dispatch(changeItem(itemIndex - 1))} >Prev</button>
+            <button onClick={() => itemIndex > 0? dispatch(changeItem(itemIndex - 1)): dispatch(changeItem(queueLength - 1))} >Prev</button>
             <Link to={`/add?token=${queryParams.get("token")}`} target="_blank">
                 <button>ADD</button>
             </Link>
             <button onClick={() => deQueue()}>DeQueue</button>
-            <button onClick={() => itemIndex + 1 < queueLength && dispatch(changeItem(itemIndex + 1))} >Next</button>
+            <button onClick={() => itemIndex + 1 < queueLength ? dispatch(changeItem(itemIndex + 1)):dispatch(changeItem(0))} >Next</button>
         </div>
     )
 }

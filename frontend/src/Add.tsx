@@ -28,8 +28,10 @@ function Add() {
     return (
         <div className="add-container">
             <center>
-                <h1>Add Item</h1>
-                <form onSubmit={onFormSubmit} >
+            <h1 className="App-title">Youtube<span>Queue</span></h1>
+
+            <h4>Add Video To The Queue</h4>
+                <form onSubmit={onFormSubmit} className="add-form">
                     <TextField sx={{
                         '& .MuiOutlinedInput-root': {
                             '& fieldset': {
@@ -54,7 +56,7 @@ function Add() {
                         }} id="outlined-basic"
                         label="Youtube Video "
                         variant="outlined" value={input instanceof URL ? input.href : input} onChange={(e) => setinput(e.target.value)} />
-                    <Button variant="outlined" type="submit">Add To Queue</Button>
+                    <Button variant="outlined" type="submit">Add</Button>
                 </form>
                 <span>{msg}</span>
             </center>

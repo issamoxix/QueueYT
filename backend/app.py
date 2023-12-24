@@ -23,15 +23,24 @@ class QueueData(BaseModel):
     video_id: str
 
 
-
-
-def http_response(message="Succ", data: Union[list, str]=[], status_code= HTTPStatus.OK):
-    return jsonify( {"success": status_code == HTTPStatus.OK, "message": message, "data": data}), status_code
-    
+def http_response(
+    message="Succ", data: Union[list, str] = [], status_code=HTTPStatus.OK
+):
+    return (
+        jsonify(
+            {"success": status_code == HTTPStatus.OK, "message": message, "data": data}
+        ),
+        status_code,
+    )
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(
+    app,
+    resources={
+        r"/*": {"origins": ["http://192.168.178.21:3000", "http://localhost:3000"]}
+    },
+)
 
 
 @app.route("/token", methods=["GET"])
@@ -49,9 +58,8 @@ def add_to_queue():
     appended_to_queue = append_to_queue(queue_data.token, queue_data.video_id)
     if not appended_to_queue:
         return http_response(
-            False,
-            "Item Couldn't be added to the queue , Maybe check if it's already in Queue ",
-            HTTPStatus.BAD_REQUEST,
+            message="Item Couldn't be added to the queue , Maybe check if it's already in Queue",
+            status_code=HTTPStatus.BAD_REQUEST,
         )
     return http_response("Item has been added to the Queue !", HTTPStatus.OK)
 
@@ -78,5 +86,11 @@ def dequeue():
     video_id = queue_data.video_id
     _dequeue = dequeue_item(queue_data.token, video_id)
     if not _dequeue:
-        return http_response(False, "Not allowed to procced with this Action !", HTTPStatus.BAD_REQUEST)
+        return http_response(
+            False, "Not allowed to procced with this Action !", HTTPStatus.BAD_REQUEST
+        )
     return http_response(True, f"Item Dequeued {video_id} !", HTTPStatus.OK)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

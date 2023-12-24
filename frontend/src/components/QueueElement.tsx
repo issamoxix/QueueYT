@@ -7,7 +7,7 @@ function QueueElement({ itemInfo, index }: { index: number, itemInfo: any }) {
     const dispatch = useDispatch()
     const videoId = itemInfo.id
     const snippet = itemInfo["snippet"]
-    const thumbnail = snippet["thumbnails"]["default"]["url"]
+    const thumbnail = snippet["thumbnails"]["medium"]["url"]
     const title = snippet["title"]
     const channel = snippet["channelTitle"]
     const playing = playingItem == index

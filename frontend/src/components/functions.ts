@@ -31,7 +31,7 @@ export async function addToQueue(token: string, video_id: string) {
 
     const response = await fetch(`${apiUrl}item`, { headers: myHeaders, method: "POST", body: raw })
     const json = await response.json()
-    return json.data
+    return json.message
 }
 
 export async function deQueueItem(token: string, item: string) {
