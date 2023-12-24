@@ -7,6 +7,7 @@ import { useDispatch} from "react-redux"
 import { useNavigate } from 'react-router';
 import { addQueue } from './store/actions';
 import Controller from './components/Controller';
+import { Link } from 'react-router-dom';
 
 
 
@@ -43,7 +44,9 @@ function App() {
   }, [tokenValue]);
   return (
     <div className="App">
+      <Link to="/" style={{textDecoration:"none"}}>
       <h1 className="App-title">Youtube<span>Queue</span></h1>
+      </Link>
       <div className="main-container">
         <VideoPlayer />
         <QueueContainer />

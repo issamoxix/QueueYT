@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import "./styles/add.css"
 import { addToQueue } from "./components/functions";
 import { Button, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 function Add() {
     const [input, setinput] = useState<string | URL>()
     const [msg, setMsg] = useState<string | null>()
@@ -28,9 +29,11 @@ function Add() {
     return (
         <div className="add-container">
             <center>
-            <h1 className="App-title">Youtube<span>Queue</span></h1>
+                <Link to="/" style={{textDecoration:"none"}}>
+                    <h1 className="App-title">Youtube<span>Queue</span></h1>
+                </Link>
 
-            <h4>Add Video To The Queue</h4>
+                <h4>Add Video To The Queue</h4>
                 <form onSubmit={onFormSubmit} className="add-form">
                     <TextField sx={{
                         '& .MuiOutlinedInput-root': {

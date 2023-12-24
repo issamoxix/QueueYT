@@ -22,7 +22,7 @@ function VideoPlayer() {
         const targetElement = document.getElementById(playList[currentVideoIndex]);
         if (targetElement) {
             targetElement.scrollIntoView({ behavior: 'smooth' });
-          }
+        }
         console.log("Video is Ready")
     }
 
@@ -37,7 +37,7 @@ function VideoPlayer() {
                 dispatch(addQueue(data.data))
             })
         }
-        
+
     }
 
     // const playVideo = () => {
@@ -60,13 +60,33 @@ function VideoPlayer() {
                 dispatch(changeItem(0))
             }
         }
+
+        const fetch_data = () => {
+            if (TokenValue) {
+                fetchData(TokenValue).then((data) => {
+                    dispatch(addQueue(data.data))
+                    if (data.data.videos.length > 0) {
+                        clearInterval(intervalId)
+                    }
+                })
+            }
+        }
+
+        if (queue.videos.length == 0) {
+            var intervalId = setInterval(fetch_data, 2000);
+        }
+
     }, [queue, currentVideoIndex])
 
-    useEffect(()=> {
-        if(queue.videos){
+    useEffect(() => {
+
+
+
+
+        if (queue.videos) {
             setcurrentVideoIndex(item)
         }
-    },[item])
+    }, [item])
     return (
         <div className="video-container">
             {playList[currentVideoIndex] &&

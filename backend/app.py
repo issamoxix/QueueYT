@@ -47,7 +47,7 @@ CORS(
 def get_token():
     token = generate_token()
     create_token = add_video(",", token)
-    return http_response(succ=create_token, data=token, status_code=HTTPStatus.OK)
+    return http_response(message=create_token, data=token, status_code=HTTPStatus.OK)
 
 
 @app.route("/item", methods=["POST"])
