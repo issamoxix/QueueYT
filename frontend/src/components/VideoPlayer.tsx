@@ -7,7 +7,7 @@ import Controller from './Controller';
 
 
 function VideoPlayer() {
-    // const [player, setPlayer] = useState<any>(null)
+    const [isInterval, setInter] = useState<any>(false)
     const [playList, setplayList] = useState<Array<string>>(["TUVcZfQe-Kw"])
     const queue: VideoData = useSelector((state: any) => state.queue)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
@@ -54,35 +54,36 @@ function VideoPlayer() {
     };
 
     useEffect(() => {
+        return () => {
+            const fetch_data = () => {
+                if (TokenValue) {
+                    fetchData(TokenValue).then((data) => {
+                        dispatch(addQueue(data.data))
+                        if (data.data.videos.length > 0) {
+                            clearInterval(intervalId)
+                        }
+                    })
+                }
+            }
+            if (queue.videos.length == 0 && !isInterval) {
+                setInter(true)
+                var intervalId = setInterval(fetch_data, 2500);
+            }
+        };
+    }, [])
+
+    useEffect(() => {
         if (queue.videos) {
+            setInter(false)
             setplayList(queue.videos)
             if (!item) {
                 dispatch(changeItem(0))
             }
         }
 
-        const fetch_data = () => {
-            if (TokenValue) {
-                fetchData(TokenValue).then((data) => {
-                    dispatch(addQueue(data.data))
-                    if (data.data.videos.length > 0) {
-                        clearInterval(intervalId)
-                    }
-                })
-            }
-        }
-
-        if (queue.videos.length == 0) {
-            var intervalId = setInterval(fetch_data, 2000);
-        }
-
     }, [queue, currentVideoIndex])
 
     useEffect(() => {
-
-
-
-
         if (queue.videos) {
             setcurrentVideoIndex(item)
         }
