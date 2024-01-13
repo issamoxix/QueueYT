@@ -1,5 +1,5 @@
 body {
-  background-image: url("/tokyo-night.jpg");
+  background-image: url("../../public/tokyo-night.jpg");
   background-size: cover;
 }
 
