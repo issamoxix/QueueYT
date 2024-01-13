@@ -30,7 +30,7 @@ function Add() {
         <div className="add-container">
             <center>
                 <Link to="/" style={{textDecoration:"none"}}>
-                    <h1 className="App-title">Youtube<span>Queue</span></h1>
+                    <h1 className="App-title">Youtube<span>Q</span></h1>
                 </Link>
 
                 <h4>Add Video To The Queue</h4>

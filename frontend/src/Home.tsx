@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Home() {
     return (<div className="home-container" >
 
-        <h1>Youtube<span>Queue</span></h1>
+        <h1>Youtube<span>Q</span></h1>
         <Link to="/player">
             <button>Get Started</button>
         </Link>

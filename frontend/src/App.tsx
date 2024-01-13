@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <Link to="/" style={{textDecoration:"none"}}>
-      <h1 className="App-title">Youtube<span>Queue</span></h1>
+      <h1 className="App-title">Youtube<span>Q</span></h1>
       </Link>
       <div className="main-container">
         <VideoPlayer />
