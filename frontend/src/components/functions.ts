@@ -2,7 +2,7 @@
 const apiUrl = "http://192.168.178.21:5000/"
 
 export async function fetchData(token: string) {
-    const response = await fetch(`${apiUrl}getqueue?token=${token}`)
+    const response = await fetch(`${apiUrl}queues/${token}`)
     const json = await response.json()
     return json
 }
@@ -29,7 +29,7 @@ export async function addToQueue(token: string, video_id: string) {
     });
 
 
-    const response = await fetch(`${apiUrl}item`, { headers: myHeaders, method: "POST", body: raw })
+    const response = await fetch(`${apiUrl}items`, { headers: myHeaders, method: "POST", body: raw })
     const json = await response.json()
     return json.message
 }

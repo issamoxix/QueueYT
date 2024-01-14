@@ -3,6 +3,8 @@ from flask_cors import CORS
 from functions import generate_token, fetch_video_info
 from pydantic import BaseModel
 from typing import Union
+from http import HTTPStatus
+
 from db.tokens import (
     add_video,
     token_exists,
@@ -10,7 +12,6 @@ from db.tokens import (
     fetch_queue,
     dequeue_item,
 )
-from http import HTTPStatus
 
 
 class AppResponse(BaseModel):
@@ -50,7 +51,7 @@ def get_token():
     return http_response(message=create_token, data=token, status_code=HTTPStatus.OK)
 
 
-@app.route("/item", methods=["POST"])
+@app.route("/items", methods=["POST"])
 def add_to_queue():
     queue_data = QueueData.model_validate(request.json)
     if not token_exists(queue_data.token):
@@ -65,9 +66,8 @@ def add_to_queue():
 
 
 # use Cache here so i don't spam the youtube api
-@app.route("/getqueue", methods=["GET"])
-def get_queue():
-    token = request.args.get("token")
+@app.route("/queues/<token>", methods=["GET"])
+def get_queue(token):
     if not token_exists(token):
         return http_response("Token Doesn't exists", HTTPStatus.BAD_REQUEST)
     queue = fetch_queue(token)
