@@ -44,6 +44,11 @@ CORS(
 )
 
 
+@app.route("/", methods=["GET"])
+def index():
+    return http_response(message="Hello World !", status_code=HTTPStatus.OK)
+
+
 @app.route("/token", methods=["GET"])
 def get_token():
     token = generate_token()
@@ -65,7 +70,6 @@ def add_to_queue():
     return http_response("Item has been added to the Queue !", HTTPStatus.OK)
 
 
-# use Cache here so i don't spam the youtube api
 @app.route("/queues/<token>", methods=["GET"])
 def get_queue(token):
     if not token_exists(token):
