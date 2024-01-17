@@ -26,6 +26,9 @@ jobs:
     - name: Change Working Directory
       run: cd backend
 
+    - name: Check Directory
+      run: ls 
+
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
