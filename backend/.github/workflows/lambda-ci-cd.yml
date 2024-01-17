@@ -1,0 +1,45 @@
+name: Deploy Lambda Function
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: eu-north-1
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Set Up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+        
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -t .
+
+    # - name: Test
+    #   run: |
+    #     python -m unittest tests.test_func
+
+    - name: Zip Lambda Deployment Package
+      run: |
+        zip -r lambda-package.zip .
+
+    - name: Deploy Lambda
+      run: |
+        aws lambda update-function-code \
+          --function-name Queueyt \
+          --zip-file fileb://lambda-package.zip
+

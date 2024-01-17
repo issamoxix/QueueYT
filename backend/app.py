@@ -4,6 +4,7 @@ from functions import generate_token, fetch_video_info
 from pydantic import BaseModel
 from typing import Union
 from http import HTTPStatus
+import awsgi
 
 from db.tokens import (
     add_video,
@@ -96,5 +97,9 @@ def dequeue():
     return http_response(True, f"Item Dequeued {video_id} !", HTTPStatus.OK)
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+
+def lambda_handler(event, context):
+    return awsgi.response(app, event, context, base64_content_types={"image/png"})
+
+# if __name__ == "__main__":
+    # app.run(host="0.0.0.0", port=5000)
