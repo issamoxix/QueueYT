@@ -23,11 +23,9 @@ jobs:
       with:
         python-version: 3.x
         
-    - name: Change Working Directory
-      run: cd backend
-
-    - name: Check Directory
-      run: ls 
+    - name: Move Backend Files
+      run: |
+        mv backend/* .
 
     - name: Install Dependencies
       run: |
