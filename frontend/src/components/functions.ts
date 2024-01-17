@@ -1,5 +1,5 @@
-// const apiUrl = "http://localhost:5000/"
-const apiUrl = "http://192.168.178.21:5000/"
+// const apiUrl =  "http://localhost:5000/" ;
+const apiUrl =  "https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/" ;
 
 export async function fetchData(token: string) {
     const response = await fetch(`${apiUrl}queues/${token}`)
@@ -29,7 +29,7 @@ export async function addToQueue(token: string, video_id: string) {
     });
 
 
-    const response = await fetch(`${apiUrl}items`, { headers: myHeaders, method: "POST", body: raw })
+    const response = await fetch(`${apiUrl}videos/${token}`, { headers: myHeaders, method: "POST", body: raw })
     const json = await response.json()
     return json.message
 }
@@ -43,7 +43,7 @@ export async function deQueueItem(token: string, item: string) {
         "video_id": item
     })
 
-    const response = await fetch(`${apiUrl}dequeue`, { headers: myHeaders, method: "POST", body: raw })
+    const response = await fetch(`${apiUrl}videos/${token}`, { headers: myHeaders, method: "DELETE", body: raw })
     const json = await response.json()
     return json.data
 }
