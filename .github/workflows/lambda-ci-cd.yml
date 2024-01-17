@@ -23,6 +23,8 @@ jobs:
       with:
         python-version: 3.x
         
+    - name: Change Working Directory
+      run: cd backend
 
     - name: Install Dependencies
       run: |
@@ -42,4 +44,3 @@ jobs:
         aws lambda update-function-code \
           --function-name Queueyt \
           --zip-file fileb://lambda-package.zip
-
