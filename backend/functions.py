@@ -11,6 +11,8 @@ def generate_token(N=5):
 
 
 def fetch_video_info(video_ids: list[str], part: str = "snippet"):
+    if not video_ids:
+        return {}
     api_key = os.environ.get('API_KEY')
     if not api_key:
         print("API Key not found in environment variables.")
