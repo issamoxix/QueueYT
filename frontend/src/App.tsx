@@ -19,6 +19,7 @@ function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const tokenValue = queryParams.get('token');
   useEffect(() => {
+    console.log("useEffect")
     return () => {
       if (queryParams.has('token')) {
         const tokenValue = queryParams.get('token');
