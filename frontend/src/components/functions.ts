@@ -1,5 +1,6 @@
-// const apiUrl =  "http://localhost:5000/" ;
-const apiUrl =  "https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/" ;
+
+// const apiUrl =  "https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/" ;
+const apiUrl =  "http://localhost:5000/" ;
 
 export async function fetchData(token: string) {
     const response = await fetch(`${apiUrl}queues/${token}`)
@@ -14,12 +15,14 @@ export type VideoData = {
 }
 
 export async function fetchToken() {
+    console.log("fetching token")
     const response = await fetch(`${apiUrl}token`)
     const json = await response.json()
     return json.data
 }
 
 export async function addToQueue(token: string, video_id: string) {
+    console.log("adding to queue")
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -35,6 +38,7 @@ export async function addToQueue(token: string, video_id: string) {
 }
 
 export async function deQueueItem(token: string, item: string) {
+    console.log("deleting from queue")
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
