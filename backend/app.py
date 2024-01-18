@@ -39,7 +39,7 @@ app = Flask(__name__)
 CORS(
     app,
     resources={
-        r"/*": {"origins": ["http://192.168.178.21:3000", "http://localhost:3000"]}
+        r"/*": {"origins": ["http://192.168.178.21:3000", "http://localhost:3000", "https://queue-yt.vercel.app"]}
     },
 )
 
@@ -158,5 +158,5 @@ def lambda_handler(event, context):
     return awsgi.response(app, event, context)
 
 
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
