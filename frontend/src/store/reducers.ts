@@ -17,7 +17,7 @@ const initialState: InitialState = {
 
 
 const rootReducer = (state = initialState, action: any) => {
-    console.log("reducer")
+    console.log("reducer", action)
     switch (action.type) {
         case CHANGE_ITEM:
             return {
