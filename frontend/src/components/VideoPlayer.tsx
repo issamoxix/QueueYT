@@ -104,7 +104,7 @@ function VideoPlayer() {
             <Controller token={TokenValue} />
             <div className="switch-container">
                 <h4>Force Start</h4>
-                <Switch onChange={(e) => setForce(e.target.checked)} />
+                <Switch checked={force} onChange={(e) => setForce(e.target.checked)} />
             </div>
         </div>
     )
