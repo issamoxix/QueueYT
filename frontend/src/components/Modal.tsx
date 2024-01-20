@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { addToQueue } from './functions';
+import { addToQueue, fetchData } from './functions';
+import { addQueue } from '../store/actions';
+import { useDispatch } from 'react-redux';
 
 
 
 function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string | null, isModalOpen: boolean, setModalOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [input, setinput] = useState<string | URL>()
-
+    const dispatch = useDispatch();
     const toggleModal = () => {
         // console.log('toggleModal');
         setModalOpen(!isModalOpen);
@@ -22,6 +24,10 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
                     addToQueue(tokenValue, videoId).then((data) => alert(data)).then(() => {
                         setinput("")
                         setModalOpen(false)
+                        fetchData(tokenValue).then((data) =>
+                            dispatch(addQueue(data.data))
+
+                        )
                     })
                 }
             }

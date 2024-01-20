@@ -98,7 +98,8 @@ function VideoPlayer() {
     return (
         <div className="video-container">
             {playList[currentVideoIndex] ?
-                <YouTube className="video-player" videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} onPause={onPause} /> : <img src="static.png" width={"100%"} />
+                <YouTube className="video-player" videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} onPause={onPause} /> 
+                : <div style={{display:"flex", justifyContent:"center"}}><img className="static-load" src="static.png"/></div>
             }
             <Controller token={TokenValue} />
             <div className="switch-container">

@@ -118,9 +118,11 @@ body {
 .hide-modal {
   display: none;
 }
+
 .flex {
   display: flex;
 }
+
 .modal {
   justify-content: center;
   align-items: center;
@@ -131,18 +133,21 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  
+
 }
+
 .modal-content h1 {
   font-size: 20px;
   margin-bottom: 10px;
   color: #fff;
 }
+
 .modal-content p {
   font-size: 14px;
   margin-bottom: 10px;
   color: #a5a5a5;
 }
+
 .modal-content {
   background-color: #0349b7e0;
   /* background-color: #fff; */
@@ -166,7 +171,8 @@ body {
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  justify-self: end; /* Add this line */
+  justify-self: end;
+  /* Add this line */
 }
 
 .loading {
@@ -193,41 +199,59 @@ body {
   right: 0;
 }
 
+.static-load {
+  /* width: 200px; */
+  height: 400px;
+}
+
 @media (max-width: 768px) {
+  .static-load {
+    width: 100%;
+  }
   .queue-controller {
     /* flex-direction: column; */
     width: 100%;
   }
+
   .queue-controller {
     margin-top: 5px;
     /* padding: 10px; */
   }
+
   .queue-controller button {
     margin-bottom: 10px;
     width: 20%;
   }
+
   .queue-container {
     width: 100%;
   }
+
   .video-container {
     width: 100%;
   }
+
   .modal-content {
     width: 100%;
   }
+
   .modal {
     width: 90%;
   }
+
   .main-container {
     flex-direction: column;
   }
+
   .video-container {
     padding: 0px;
   }
+
   .video-player {
     display: flex;
     justify-content: center;
   }
+
   .video-player iframe {
     width: 90%;
   }
