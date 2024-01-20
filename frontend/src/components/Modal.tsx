@@ -28,6 +28,7 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
 
         } catch (error) {
             console.log(error)
+            alert("Invalid URL")
         }
     }
     const modalContainerClass = `modal-container ${isModalOpen ? '' : 'hide-modal'}`;

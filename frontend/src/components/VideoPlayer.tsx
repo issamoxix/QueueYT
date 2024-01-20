@@ -93,9 +93,10 @@ function VideoPlayer() {
     return (
         <div className="video-container">
             {playList[currentVideoIndex] ?
-                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} /> : <img src="https://i.pinimg.com/originals/5a/93/4e/5a934e84f67d2a61a118ec95b1d6cb74.gif" />
+                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} /> : <img src="static.png" />
             }
             <Controller token={TokenValue} />
+
         </div>
     )
 
