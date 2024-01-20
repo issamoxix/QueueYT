@@ -4,12 +4,12 @@ import { VideoData, fetchData } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addQueue, changeItem } from '../store/actions';
 import Controller from './Controller';
-import Modal from './Modal';
-import { tokenToString } from 'typescript';
+import { Switch } from '@mui/material';
 
 
 function VideoPlayer() {
     // const [isInterval, setInter] = useState<any>(false)
+    const [force, setForce] = useState<boolean>(false)
     const [playList, setplayList] = useState<Array<string>>(["TUVcZfQe-Kw"])
     const queue: VideoData = useSelector((state: any) => state.queue)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
@@ -26,6 +26,11 @@ function VideoPlayer() {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
         console.log("Video is Ready")
+    }
+    const onPause = (event: any) => {
+        if (force) {
+            event.target.playVideo()
+        }
     }
 
 
@@ -93,10 +98,13 @@ function VideoPlayer() {
     return (
         <div className="video-container">
             {playList[currentVideoIndex] ?
-                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} /> : <img src="static.png" />
+                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} onPause={onPause} /> : <img src="static.png" />
             }
             <Controller token={TokenValue} />
-
+            <div className="switch-container">
+                <h4>Force Start</h4>
+                <Switch onChange={(e) => setForce(e.target.checked)} />
+            </div>
         </div>
     )
 
