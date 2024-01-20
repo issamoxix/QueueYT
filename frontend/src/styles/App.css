@@ -169,6 +169,20 @@ body {
   justify-self: end; /* Add this line */
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* background-color: #000000a6; */
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  color: #fff;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

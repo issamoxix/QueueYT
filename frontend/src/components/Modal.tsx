@@ -7,7 +7,7 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
     const [input, setinput] = useState<string | URL>()
 
     const toggleModal = () => {
-        console.log('toggleModal');
+        // console.log('toggleModal');
         setModalOpen(!isModalOpen);
     };
 

@@ -19,7 +19,7 @@ function App() {
   const queryParams = new URLSearchParams(window.location.search);
   const tokenValue = queryParams.get('token');
   useEffect(() => {
-    console.log("useEffect")
+    // console.log("useEffect")
     // return () => {
     if (queryParams.has('token')) {
       const tokenValue = queryParams.get('token');
@@ -48,10 +48,12 @@ function App() {
       <Link to="/" style={{ textDecoration: "none" }}>
         <h1 className="App-title">Youtube<span>Q</span></h1>
       </Link>
-      <div className="main-container">
-        <VideoPlayer />
-        <QueueContainer />
-      </div>
+      {tokenValue ?
+        <div className="main-container">
+          <VideoPlayer />
+          <QueueContainer />
+        </div>
+        : <div className='loading'>Loading...</div>}
     </div>
   );
 }

@@ -15,14 +15,14 @@ export type VideoData = {
 }
 
 export async function fetchToken() {
-    console.log("fetching token")
+    // console.log("fetching token")
     const response = await fetch(`${apiUrl}token`)
     const json = await response.json()
     return json.data
 }
 
 export async function addToQueue(token: string, video_id: string) {
-    console.log("adding to queue")
+    // console.log("adding to queue")
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -38,7 +38,7 @@ export async function addToQueue(token: string, video_id: string) {
 }
 
 export async function deQueueItem(token: string, item: string) {
-    console.log("deleting from queue")
+    // console.log("deleting from queue")
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
