@@ -4,6 +4,8 @@ import { VideoData, fetchData } from './functions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addQueue, changeItem } from '../store/actions';
 import Controller from './Controller';
+import Modal from './Modal';
+import { tokenToString } from 'typescript';
 
 
 function VideoPlayer() {
@@ -90,11 +92,10 @@ function VideoPlayer() {
     }, [item])
     return (
         <div className="video-container">
-            {playList[currentVideoIndex] &&
-                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} />
+            {playList[currentVideoIndex] ?
+                <YouTube videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} /> : <img src="https://i.pinimg.com/originals/5a/93/4e/5a934e84f67d2a61a118ec95b1d6cb74.gif" />
             }
             <Controller token={TokenValue} />
-
         </div>
     )
 
