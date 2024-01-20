@@ -193,6 +193,46 @@ body {
   right: 0;
 }
 
+@media (max-width: 768px) {
+  .queue-controller {
+    /* flex-direction: column; */
+    width: 100%;
+  }
+  .queue-controller {
+    margin-top: 5px;
+    /* padding: 10px; */
+  }
+  .queue-controller button {
+    margin-bottom: 10px;
+    width: 20%;
+  }
+  .queue-container {
+    width: 100%;
+  }
+  .video-container {
+    width: 100%;
+  }
+  .modal-content {
+    width: 100%;
+  }
+  .modal {
+    width: 90%;
+  }
+  .main-container {
+    flex-direction: column;
+  }
+  .video-container {
+    padding: 0px;
+  }
+  .video-player {
+    display: flex;
+    justify-content: center;
+  }
+  .video-player iframe {
+    width: 90%;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
