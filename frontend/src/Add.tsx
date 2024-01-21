@@ -15,7 +15,10 @@ function Add() {
         try {
             if (input) {
                 const URI = new URL(input)
-                const videoId = URI.searchParams.get("v")
+                let videoId = URI.searchParams.get("v")
+                if (!videoId) {
+                    videoId = URI.pathname.split("/")[1]
+                }
                 if (tokenValue && videoId) {
                     addToQueue(tokenValue, videoId).then((data) => setMsg(data))
                     setinput("")
@@ -29,7 +32,7 @@ function Add() {
     return (
         <div className="add-container">
             <center>
-                <Link to="/" style={{textDecoration:"none"}}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                     <h1 className="App-title">Youtube<span>Q</span></h1>
                 </Link>
 

@@ -19,7 +19,10 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
         try {
             if (input) {
                 const URI = new URL(input)
-                const videoId = URI.searchParams.get("v")
+                let videoId = URI.searchParams.get("v")
+                if (!videoId) {
+                    videoId = URI.pathname.split("/")[1]
+                }
                 if (tokenValue && videoId) {
                     addToQueue(tokenValue, videoId).then((data) => alert(data)).then(() => {
                         setinput("")
