@@ -17,13 +17,12 @@ class StorageProvider:
         except Exception as e:
             print(f"Error {e}")
             return None
-    
-    
+
     def not_over_limit(self):
-        response  = self.client.list_objects_v2(Bucket=self.bucket_name)
+        response = self.client.list_objects_v2(Bucket=self.bucket_name)
         total_size = 0
-        for obj in response.get('Contents', []):
-            total_size += obj['Size']
+        for obj in response.get("Contents", []):
+            total_size += obj["Size"]
         usage = round(total_size / (1024**3))
 
         return usage < 10
@@ -45,11 +44,10 @@ class StorageProvider:
     def upload_file_in_chunks(
         self, chunk, file_name, upload_id=None, part_number=1, content_type=""
     ):
-  
         file_path = self.token + "/" + file_name
         self.metadata["ContentType"] = content_type
         extra_args = {}
-        
+
         if self.metadata:
             extra_args = self.metadata
         if not upload_id:
@@ -94,14 +92,17 @@ class StorageProvider:
         except Exception as e:
             print(f"Error {e}")
 
-    def upload_file(self,s3_key, buffer):
+    def upload_file(self, s3_key, buffer):
         self.metadata["ContentType"] = "image/png"
         try:
-            self.client.upload_fileobj(buffer, self.bucket_name, s3_key, ExtraArgs=self.metadata)
+            self.client.upload_fileobj(
+                buffer, self.bucket_name, s3_key, ExtraArgs=self.metadata
+            )
             return True
-        except:
+        except Exception as e:
+            print(f"Error {e}")
             return False
-        
+
     def create_object(self, data):
         try:
             self.client.put_object(Body=data, Bucket=self.bucket_name, Key=self.token)
@@ -109,15 +110,3 @@ class StorageProvider:
         except Exception as e:
             print(f"Error {e}")
             return False
-
-    def update_object(self, data):
-        try:
-            existing_object = self.client.get_object(Bucket=self.bucket_name, Key=self.token)
-            existing_object.update(data)
-            json_string = json.dumps(existing_data, indent=2)
-            # self.client.put_object(Body=data, Bucket=self.bucket_name, Key=self.token)
-            return True
-        except Exception as e:
-            print(f"Error {e}")
-            return False
-    

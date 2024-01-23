@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from functions import generate_token, fetch_video_info
+from utils.functions import generate_token, fetch_video_info
 from pydantic import BaseModel
 from typing import Union
 from http import HTTPStatus
