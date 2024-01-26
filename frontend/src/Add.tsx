@@ -6,9 +6,31 @@ import { Link } from "react-router-dom";
 function Add() {
     const [input, setinput] = useState<string | URL>()
     const [msg, setMsg] = useState<string | null>()
+    const [search, setSearch] = useState<Array<any> | null>()
 
     const queryParams = new URLSearchParams(window.location.search);
     const tokenValue = queryParams.get('token');
+
+    function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+        setinput(e.target.value)
+        let q: string = e.target.value
+        if (!q.includes("youtube.com") && !q.includes("youtu.be") && !q.includes("http")) {
+            
+            fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
+                .then(res => res.json())
+                .then(data => {
+                    setSearch(data.data)
+                })
+        }
+
+    }
+
+    function appendToQueue(videoId: string) {
+        if (tokenValue && videoId) {
+            addToQueue(tokenValue, videoId).then((data) => setMsg(data))
+            setinput("")
+        }
+    }
 
     function onFormSubmit(event: React.FormEvent) {
         event.preventDefault()
@@ -20,8 +42,7 @@ function Add() {
                     videoId = URI.pathname.split("/")[1]
                 }
                 if (tokenValue && videoId) {
-                    addToQueue(tokenValue, videoId).then((data) => setMsg(data))
-                    setinput("")
+                    appendToQueue(videoId)
                 }
             }
 
@@ -61,11 +82,25 @@ function Add() {
                             style: { color: 'white' },
                         }} id="outlined-basic"
                         label="Youtube Video "
-                        variant="outlined" value={input instanceof URL ? input.href : input} onChange={(e) => setinput(e.target.value)} />
+                        variant="outlined" value={input instanceof URL ? input.href : input} onChange={handleInput} />
                     <Button variant="outlined" type="submit">Add</Button>
                 </form>
                 <span>{msg}</span>
+                <div className="search-container">
+                    {search && search.map((item: any) => {
+                        return (
+                            <div className="search-item">
+                                <h4>{item.snippet.title}</h4>
+                                <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
+                                <button onClick={() => appendToQueue(item.id.videoId)} >AddVideo</button>
+                            </div>
+                        )
+                    })
+                    }
+
+                </div>
             </center>
+
         </div>
     )
 }
