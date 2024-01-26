@@ -9,8 +9,8 @@ function Controller({ token }: { token: string | null }) {
     const itemIndex = useSelector((state: InitialState) => state.itemIndex)
     const queueLength = useSelector((state: InitialState) => state.queueLength)
     const videos = useSelector((state: InitialState) => state.queue.videos)
-    const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
+    const dispatch = useDispatch();
 
     const deQueue = () => {
         if (queueLength === 0) {

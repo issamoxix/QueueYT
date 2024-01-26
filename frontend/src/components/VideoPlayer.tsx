@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addQueue, changeItem } from '../store/actions';
 import Controller from './Controller';
 import { Switch } from '@mui/material';
+import QrcodeModal from './QrcodeModal';
 
 
 function VideoPlayer() {
     // const [isInterval, setInter] = useState<any>(false)
+    const [open, setOpen] = React.useState(false);
     const [force, setForce] = useState<boolean>(false)
     const [playList, setplayList] = useState<Array<string>>(["TUVcZfQe-Kw"])
     const queue: VideoData = useSelector((state: any) => state.queue)
@@ -99,12 +101,14 @@ function VideoPlayer() {
         <div className="video-container">
             {playList[currentVideoIndex] ?
                 <YouTube className="video-player" videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} onPause={onPause} /> 
-                : <div style={{display:"flex", justifyContent:"center"}}><img className="static-load" src="static.png"/></div>
+                : <div style={{display:"flex", justifyContent:"center"}}><img className="static-load" alt="Loading Static" src="static.png"/></div>
             }
             <Controller token={TokenValue} />
             <div className="switch-container">
                 <h4>Force Start</h4>
                 <Switch checked={force} onChange={(e) => setForce(e.target.checked)} />
+                <img alt="YoutubeQ QrCode" src={`https://youtubeq.s3.eu-north-1.amazonaws.com/qrcodes/${TokenValue}.png`} onClick={()=> setOpen(true)} width={60} style={{cursor:"pointer"}}/>
+                <QrcodeModal isModalOpen={open} setModalOpen={setOpen} tokenValue={TokenValue} />
             </div>
         </div>
     )
