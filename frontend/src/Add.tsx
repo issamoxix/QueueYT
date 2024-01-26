@@ -16,11 +16,11 @@ function Add() {
         let q: string = e.target.value
         if (!q.includes("youtube.com") && !q.includes("youtu.be") && !q.includes("http")) {
             
-            fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
-                .then(res => res.json())
-                .then(data => {
-                    setSearch(data.data)
-                })
+            // fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         setSearch(data.data)
+            //     })
         }
 
     }
