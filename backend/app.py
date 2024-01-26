@@ -12,6 +12,7 @@ from StorageProvider.utils import (
     append_to_queue,
     dequeue_item,
 )
+from utils.functions import fetch_videos_by_keyword
 
 
 class AppResponse(BaseModel):
@@ -80,6 +81,15 @@ def get_queue(token):
     except Exception as e:
         return http_response(message=False, data=e, status_code=500)
 
+@app.route("/search/<keyword>", methods=["GET"])
+def search(keyword):
+    try:
+        videos = fetch_videos_by_keyword(keyword)
+        if not videos:
+            return http_response(message="Server Error", data=keyword, status_code=500)
+        return http_response(message=True, data=videos, status_code=HTTPStatus.OK)
+    except Exception as e:
+        return http_response(message=False, data=e, status_code=500)
 
 @app.route("/videos/<token>", methods=["POST"])
 def add_to_queue(token):
