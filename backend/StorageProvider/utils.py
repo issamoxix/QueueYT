@@ -5,8 +5,24 @@ from io import BytesIO
 
 
 def store_token(token) -> bool:
+    """
+    Stores the token in the storage provider
+    and create qr code for the token
+
+    Args:
+        token (str): token to store
+    
+    Returns:
+        bool: True if successful, False otherwise
+    """
     provider = StorageProvider(token=token)
     json_data = {"token": token, "videos": []}
+    try:
+        qr_token = generate_qrcode(token)
+        provider.upload_file(f"qrcodes/{token}.png", qr_token)
+    except:
+        qr_token = False
+
     if provider.create_object(json.dumps(json_data)):
         return True
     return False
@@ -32,14 +48,18 @@ def generate_qrcode(token):
 
 
 def fetch_token(token):
+    """
+    Fetches the token from the storage provider
+
+    Args:
+        token (str): token to fetch
+
+    Returns:
+        dict: token data if successful, False otherwise
+    """
     try:
         provider = StorageProvider(token=token)
         token_data = provider.get_object(token)
-        try:
-            qr_token = generate_qrcode(token)
-            provider.upload_file(f"qrcodes/{token}.png", qr_token)
-        except:
-            qr_token = False
         return json.loads(token_data)
     except:
         return False
