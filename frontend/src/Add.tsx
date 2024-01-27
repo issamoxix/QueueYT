@@ -13,22 +13,28 @@ function Add() {
 
     function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
         setinput(e.target.value)
-        let q: string = e.target.value
-        if (!q.includes("youtube.com") && !q.includes("youtu.be") && !q.includes("http")) {
-            
-            // fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
-            //     .then(res => res.json())
-            //     .then(data => {
-            //         setSearch(data.data)
-            //     })
-        }
+    }
 
+    function handleSeach() {
+        if (!input) {
+            return;
+        }
+        const q: string = input.toString();
+        if (!q.includes("youtube.com") && !q.includes("youtu.be") && !q.includes("http")) {
+
+            fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
+                .then(res => res.json())
+                .then(data => {
+                    setSearch(data.data)
+                })
+        }
     }
 
     function appendToQueue(videoId: string) {
         if (tokenValue && videoId) {
             addToQueue(tokenValue, videoId).then((data) => setMsg(data))
             setinput("")
+            setSearch(null)
         }
     }
 
@@ -83,23 +89,28 @@ function Add() {
                         }} id="outlined-basic"
                         label="Youtube Video "
                         variant="outlined" value={input instanceof URL ? input.href : input} onChange={handleInput} />
-                    <Button variant="outlined" type="submit">Add</Button>
+                    <div className="add-form-buttons">
+                        <Button variant="outlined" type="submit">Add</Button>
+                        <Button variant="outlined" onClick={handleSeach}>Search</Button>
+                    </div>
                 </form>
                 <span>{msg}</span>
-                <div className="search-container">
-                    {search && search.map((item: any) => {
-                        return (
-                            <div className="search-item">
-                                <h4>{item.snippet.title}</h4>
-                                <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
-                                <button onClick={() => appendToQueue(item.id.videoId)} >AddVideo</button>
-                            </div>
-                        )
-                    })
-                    }
-
-                </div>
             </center>
+            <div className="search-container">
+                {search && search.map((item: any) => {
+
+                    return (
+                        <div className="queue-element playing" onClick={() => appendToQueue(item.id.videoId)}>
+                            <img src={item.snippet.thumbnails.default.url} alt={item.snippet.title} />
+                            <div className="queue-item-details">
+                                <h4>{item.snippet.title}</h4>
+                            </div>
+                        </div>
+                    )
+                }
+                )}
+
+            </div>
 
         </div>
     )
