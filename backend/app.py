@@ -40,7 +40,7 @@ app = Flask(__name__)
 CORS(
     app,
     resources={
-        r"/*": {"origins": ["http://192.168.178.21:3000", "http://localhost:3000", "https://queue-yt.vercel.app"]}
+        r"/*": {"origins": ["http://localhost:3000", "https://queue-yt.vercel.app"]}
     },
 )
 
