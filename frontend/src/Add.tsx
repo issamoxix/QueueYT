@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "./styles/add.css"
-import { addToQueue } from "./components/functions";
+import { apiUrl, addToQueue } from "./components/functions";
 import { Button, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 function Add() {
@@ -22,7 +22,7 @@ function Add() {
         const q: string = input.toString();
         if (!q.includes("youtube.com") && !q.includes("youtu.be") && !q.includes("http")) {
 
-            fetch(`https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/search/${q}`)
+            fetch(`${apiUrl}search/${q}`)
                 .then(res => res.json())
                 .then(data => {
                     setSearch(data.data)

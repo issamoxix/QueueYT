@@ -26,7 +26,9 @@ class QueueData(BaseModel):
 
 
 def http_response(
-    message="Succ", data: Union[list, str] = [], status_code=HTTPStatus.OK
+    message: Union[bool, str] = "Succ",
+    data: Union[list, str] = [],
+    status_code: Union[str, int, tuple] = HTTPStatus.OK,
 ):
     return (
         jsonify(
@@ -81,6 +83,7 @@ def get_queue(token):
     except Exception as e:
         return http_response(message=False, data=e, status_code=500)
 
+
 @app.route("/search/<keyword>", methods=["GET"])
 def search(keyword):
     try:
@@ -90,6 +93,7 @@ def search(keyword):
         return http_response(message=True, data=videos, status_code=HTTPStatus.OK)
     except Exception as e:
         return http_response(message=False, data=e, status_code=500)
+
 
 @app.route("/videos/<token>", methods=["POST"])
 def add_to_queue(token):
