@@ -9,7 +9,6 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
     const [input, setinput] = useState<string | URL>()
     const dispatch = useDispatch();
     const toggleModal = () => {
-        // console.log('toggleModal');
         setModalOpen(!isModalOpen);
     };
 
@@ -48,7 +47,7 @@ function Modal({ tokenValue, isModalOpen, setModalOpen }: { tokenValue: string |
             <div className={modalContainerClass} onClick={toggleModal}></div>
             <div className={modalClass}>
                 <div className='modal-content'>
-                    <h1>Add Video Here</h1>
+                    <h1>Insert Video</h1>
                     <p>Past youtube video link here</p>
                     <form onSubmit={onFormSubmit}>
                         <input type="text" onChange={(e) => setinput(e.target.value)} placeholder="https://www.youtube.com/watch?v=XXXXX" className="modal-input" value={input instanceof URL ? input.href : input} required />
