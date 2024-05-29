@@ -38,6 +38,10 @@ jobs:
     #   run: |
     #     python -m unittest tests.test_func
 
+    - name: Lockup
+      run: |
+        ls
+
     - name: Zip Lambda Deployment Package
       run: |
         zip -r lambda-package.zip .

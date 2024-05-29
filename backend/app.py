@@ -1,19 +1,19 @@
+import awsgi
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask import make_response
-from utils.functions import generate_token, fetch_video_info
 from pydantic import BaseModel
 from typing import Union
 from http import HTTPStatus
-import awsgi
 
-from StorageProvider.utils import (
+from .utils.functions import generate_token, fetch_video_info
+from .StorageProvider.utils import (
     store_token,
     fetch_token,
     append_to_queue,
     dequeue_item,
 )
-from utils.functions import fetch_videos_by_keyword
+from .utils.functions import fetch_videos_by_keyword
 
 
 class AppResponse(BaseModel):
@@ -60,8 +60,10 @@ def get_token():
         # create_token = add_video(",", token) # -> bool
         if not store_token(token):
             return http_response(message=False, data=token, status_code=400)
-        response = make_response(http_response(message=True, data=token, status_code=HTTPStatus.OK))
-        response.headers["Cache-Control"] = "public, max-age=60" # 1 minute  
+        response = make_response(
+            http_response(message=True, data=token, status_code=HTTPStatus.OK)
+        )
+        response.headers["Cache-Control"] = "public, max-age=60"  # 1 minute
         return response
     except Exception as e:
         return http_response(message=False, data=e, status_code=500)
