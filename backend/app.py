@@ -6,14 +6,14 @@ from pydantic import BaseModel
 from typing import Union
 from http import HTTPStatus
 
-from .utils.functions import generate_token, fetch_video_info
-from .StorageProvider.utils import (
+from utils.functions import generate_token, fetch_video_info
+from StorageProvider.utils import (
     store_token,
     fetch_token,
     append_to_queue,
     dequeue_item,
 )
-from .utils.functions import fetch_videos_by_keyword
+from utils.functions import fetch_videos_by_keyword
 
 
 class AppResponse(BaseModel):
