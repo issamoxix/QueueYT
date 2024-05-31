@@ -111,7 +111,7 @@ def environ(event, context):
     body = convert_byte(body)
 
     environ = {
-        "REQUEST_METHOD": event["requestContext"]["httpMethod"],
+        "REQUEST_METHOD": event["requestContext"]["http"]["method"],
         "SCRIPT_NAME": "",
         "SERVER_NAME": "",
         "SERVER_PORT": "",
