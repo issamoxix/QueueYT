@@ -110,12 +110,22 @@ def environ(event, context):
     # FIXME: Flag the encoding in the headers
     body = convert_byte(body)
 
+    if event.get("httpMethod", None):
+        http_method = event.get("httpMethod")
+    else:
+        http_method = event["requestContext"]["http"]["method"]
+
+    if event.get("path", None):
+        http_path = event.get("path")
+    else:
+        http_path = event["requestContext"]["http"]["path"]
+
     environ = {
-        "REQUEST_METHOD": event["requestContext"]["http"]["method"],
+        "REQUEST_METHOD": http_method,
         "SCRIPT_NAME": "",
         "SERVER_NAME": "",
         "SERVER_PORT": "",
-        "PATH_INFO": event["requestContext"]["http"]["path"],
+        "PATH_INFO": http_path,
         "QUERY_STRING": urlencode(event["queryStringParameters"] or {}),
         "REMOTE_ADDR": "127.0.0.1",
         "CONTENT_LENGTH": str(len(body)),
