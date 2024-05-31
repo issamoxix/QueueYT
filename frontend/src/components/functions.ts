@@ -1,5 +1,5 @@
 
-export const apiUrl =  "https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/prod/" ;
+export const apiUrl =  "https://oj2d530zl7.execute-api.eu-north-1.amazonaws.com/QQProd/" ;
 // export const apiUrl =  "http://localhost:5000/" ;
 
 export async function fetchData(token: string) {

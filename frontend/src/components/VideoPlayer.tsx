@@ -12,6 +12,7 @@ function VideoPlayer() {
     // const [isInterval, setInter] = useState<any>(false)
     const [open, setOpen] = React.useState(false);
     const [force, setForce] = useState<boolean>(false)
+    const [player, setPlayer] = useState({} as any)
     const [playList, setplayList] = useState<Array<string>>(["TUVcZfQe-Kw"])
     const queue: VideoData = useSelector((state: any) => state.queue)
     const [currentVideoIndex, setcurrentVideoIndex] = useState<number>(0)
@@ -28,6 +29,8 @@ function VideoPlayer() {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }
         console.log("Video is Ready")
+        setPlayer(event)
+
     }
     const onPause = (event: any) => {
         if (force) {
@@ -100,15 +103,22 @@ function VideoPlayer() {
     return (
         <div className="video-container">
             {playList[currentVideoIndex] ?
-                <YouTube className="video-player" videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady} onEnd={playNextVideo} onPause={onPause} /> 
-                : <div style={{display:"flex", justifyContent:"center"}}><img className="static-load" alt="Loading Static" src="static.png"/></div>
+                <YouTube className="video-player" videoId={playList[currentVideoIndex]} opts={opts} onReady={onReady}  onEnd={playNextVideo} onPause={onPause} />
+                : <div style={{ display: "flex", justifyContent: "center" }}><img className="static-load" alt="Loading Static" src="static.png" /></div>
             }
             <Controller token={TokenValue} />
             <div className="switch-container">
                 <h4>Force Start</h4>
                 <Switch checked={force} onChange={(e) => setForce(e.target.checked)} />
-                <img alt="YoutubeQ QrCode" src={`https://youtubeq.s3.eu-north-1.amazonaws.com/qrcodes/${TokenValue}.png`} onClick={()=> setOpen(true)} width={60} style={{cursor:"pointer"}}/>
+                <img alt="YoutubeQ QrCode" src={`https://youtubeq.s3.eu-north-1.amazonaws.com/qrcodes/${TokenValue}.png`} onClick={() => setOpen(true)} width={60} style={{ cursor: "pointer" }} />
                 <QrcodeModal isModalOpen={open} setModalOpen={setOpen} tokenValue={TokenValue} />
+            </div>
+
+            <div>
+                <input type="button" value="XX" onClick={() => {
+                    if (player)
+                    player.target.setVolume(1)
+                }} />
             </div>
         </div>
     )
