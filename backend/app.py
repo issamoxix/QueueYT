@@ -1,4 +1,4 @@
-import awsgi
+from services.awsgi import response
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask import make_response
@@ -135,7 +135,7 @@ def remove_from_queue(token):
 
 
 def lambda_handler(event, context):
-    return awsgi.response(app, event, context)
+    return response(app, event, context)
 
 
 if __name__ == "__main__":
