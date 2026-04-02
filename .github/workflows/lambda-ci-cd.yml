@@ -6,6 +6,7 @@ on:
       - 'backend/**'
       - 'requirements.txt'
       - '.github/workflows/lambda-ci-cd.yml'
+  workflow_dispatch:
 
 jobs:
   deploy:
