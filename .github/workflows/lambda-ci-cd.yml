@@ -54,6 +54,10 @@ jobs:
           --zip-file fileb://lambda-package.zip \
           --region ${{ env.AWS_DEFAULT_REGION }}
 
+        aws lambda wait function-updated \
+          --function-name Queueyt \
+          --region ${{ env.AWS_DEFAULT_REGION }}
+
         aws lambda update-function-configuration \
           --function-name Queueyt \
           --environment "Variables={API_KEY=${{ secrets.API_KEY }},env=${{ secrets.env }}}"
