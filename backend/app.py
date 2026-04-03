@@ -73,6 +73,8 @@ def get_token():
 def get_queue(token):
     try:
         queue_data = fetch_token(token)
+        if not queue_data:
+            return http_response(message=False, data=token, status_code=400)
         queue = queue_data.get("videos", [])
         videos_info = fetch_video_info(queue)
         response_data = {
@@ -80,13 +82,11 @@ def get_queue(token):
             "token": token,
             "videos_info": videos_info,
         }
-        if not queue_data:
-            return http_response(message=False, data=token, status_code=400)
         return http_response(
             message=True, data=response_data, status_code=HTTPStatus.OK
         )
     except Exception as e:
-        return http_response(message=False, data=e, status_code=500)
+        return http_response(message=False, data=str(e), status_code=500)
 
 
 @app.route("/search/<keyword>", methods=["GET"])
